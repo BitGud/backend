@@ -14,6 +14,9 @@ const settingSchema = new Schema<SettingType>({
     ref: 'users',
     index: true,
   },
+  enabled: {
+    type: Schema.Types.Boolean,
+  },
 })
 
 const SettingModel = bitgudMongoose.model<SettingType>('settings', settingSchema)

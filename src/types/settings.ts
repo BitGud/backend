@@ -4,4 +4,5 @@ export interface SettingType {
   monitorMode: MonitorMode
   commitFrequency: Number
   uid: String
+  enabled: Boolean
 }
