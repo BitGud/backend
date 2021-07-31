@@ -1,10 +1,7 @@
 import express from 'express'
-import { config } from './config/config'
 import { userRoute, commitRoute } from './routes/'
 import { Request, Response } from 'express'
 import cors from 'cors'
-
-const port = config.PORT
 
 const app = express()
 
@@ -20,6 +17,8 @@ app.use('/user', userRoute)
 app.use('/commit', commitRoute)
 
 // start the express server
-app.listen(port, () => {
-  console.log(`Server started at http://localhost:${port}`)
-})
+// app.listen(port, () => {
+//   console.log(`Server started at http://localhost:${port}`)
+// })
+
+export { app }
