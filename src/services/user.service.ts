@@ -27,7 +27,7 @@ export const addUser = async (uid: string, userObj: UserType): Promise<UserType>
       return Promise.resolve(null)
     }
 
-    const doc = await new UserModel(userObj).save()
+    const doc = await new UserModel({ ...userObj, uid: uid }).save()
     return Promise.resolve(doc)
   } catch (err) {
     return Promise.reject(err)

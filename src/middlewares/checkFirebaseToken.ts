@@ -4,8 +4,8 @@ import { UserModel } from '../models'
 
 // middleware to check that the given token is correct
 const checkFirebaseToken = async (req: Request, res: Response, next: NextFunction) => {
-  let _firebaseToken = req.headers['Authorization'] as string
-  _firebaseToken = _firebaseToken.replace('Bearer', '').trim()
+  let _firebaseToken = req.headers.authorization as string
+  _firebaseToken = _firebaseToken.replace('Bearer ', '').trim()
   if (_firebaseToken == null) {
     return res.status(401).send('Unauthorized.')
   }

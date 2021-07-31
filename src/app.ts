@@ -3,11 +3,18 @@ import { userRoute, commitRoute } from './routes/'
 import { Request, Response } from 'express'
 import cors from 'cors'
 import { createGithubCustomToken } from './utils/decodeGithubToken'
+import { config } from './config/config'
+import morgan from 'morgan'
+import { checkFirebaseToken } from './middlewares/checkFirebaseToken'
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
+
+if (config.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
 
 // define a route handler for the default home page
 app.get('/', async (req: Request, res: Response) => {
@@ -24,6 +31,10 @@ app.post('/code', async (req: Request, res: Response) => {
   }
 })
 
+// Atatch custom middlewares
+app.use(checkFirebaseToken)
+
+// Setup routes
 app.use('/user', userRoute)
 app.use('/commit', commitRoute)
 

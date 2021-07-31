@@ -31,6 +31,7 @@ const config = {
   GITHUB_VSCODE_CLIENT_ID: process.env.GITHUB_VSCODE_CLIENT_ID,
   GITHUB_VSCODE_CLIENT_SECRET: process.env.GITHUB_VSCODE_CLIENT_SECRET,
   FIREBASE_SERVICE_ACCOUNT_IS_PATH: process.env.FIREBASE_SERVICE_ACCOUNT_IS_PATH,
+  NODE_ENV: process.env.NODE_ENV || 'development',
 }
 
 export { config }
