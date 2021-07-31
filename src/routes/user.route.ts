@@ -3,7 +3,7 @@ import { getUserDetails } from '../services/user.service'
 
 const userRoute = Router()
 
-userRoute.route('').get(async (req: Request, res: Response) => {
+userRoute.route('/').get(async (req: Request, res: Response) => {
   try {
     const uid = (req.headers['uid'] || '') as string
     const data = await getUserDetails(uid)
