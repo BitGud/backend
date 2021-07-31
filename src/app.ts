@@ -7,7 +7,7 @@ import { config } from './config/config'
 import morgan from 'morgan'
 import { checkFirebaseToken } from './middlewares/checkFirebaseToken'
 import { initialiseScheduler } from './schedules/scheduler'
-initialiseScheduler()
+// initialiseScheduler()
 
 const app = express()
 
