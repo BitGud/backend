@@ -20,9 +20,4 @@ app.post('/code', async (req: Request, res: Response) => {
 app.use('/user', userRoute)
 app.use('/commit', commitRoute)
 
-// start the express server
-// app.listen(port, () => {
-//   console.log(`Server started at http://localhost:${port}`)
-// })
-
 export { app }
