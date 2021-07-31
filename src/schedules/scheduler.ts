@@ -2,11 +2,11 @@ import scheduler from 'node-schedule'
 import moment, { Moment } from 'moment'
 import { getAListOfUsersForScheduler } from '../services/combined.service'
 import { SettingType } from 'settings'
-import { CommitModel } from '../models'
-import { getUserDetails } from '../services/user.service'
+import { CommitModel, SettingModel } from '../models'
+import { getUserDetails, getUserWebhooks } from '../services/user.service'
+import axios from 'axios'
 
 export const scheduleMap: { [uid: string]: scheduler.Job } = {}
-export const settingMap: { [uid: string]: SettingType } = {}
 
 export const scheduleAJob = (uid: string, date: Moment, task: any) => {
   const currentJob = scheduler.scheduleJob(date.toDate(), task)
@@ -14,7 +14,23 @@ export const scheduleAJob = (uid: string, date: Moment, task: any) => {
 }
 
 const shockFunction = async (uid: string) => {
-  console.log('⚡')
+  try {
+    // Trigger webhooks for this user
+    const userWebhooks = await getUserWebhooks(uid)
+    const webhookPromise = userWebhooks.map(async (webhookUrl) => {
+      await axios.post(webhookUrl, {
+        shock: true,
+      })
+    })
+    await Promise.all(webhookPromise)
+
+    // Increment the shocked counter
+
+    // Set the last chocked Date/time
+    console.log('⚡')
+  } catch (err) {
+    console.error('error shockFunction', err)
+  }
 }
 
 export const checkCommit = async (setting: SettingType, startTime: Moment) => {
@@ -60,10 +76,18 @@ export const checkCommit = async (setting: SettingType, startTime: Moment) => {
     console.log('Checking setting now', setting)
 
     if (getShock) {
-      // Trigger webhooks for this user
-      // Increment the shocked counter
-      // Set the last chocked Date/time
       await shockFunction(setting.uid.valueOf())
+    }
+
+    // Check if the setting is still enabled for this user
+    const check = await SettingModel.findOne({ uid: setting.uid.valueOf() }).select('enabled').lean().exec()
+    if (check !== null) {
+      if (check.enabled) {
+        // Schedule another job
+        scheduleAJob(setting.uid.valueOf(), calcualteScheduleDate(setting), function () {
+          checkCommit(setting, startTime)
+        })
+      }
     }
   } catch (err) {
     console.error('error checkCommit', err)
@@ -79,7 +103,6 @@ export const initialiseScheduler = async () => {
     const settings = await getAListOfUsersForScheduler()
     for (const setting of settings) {
       const startTime = moment()
-      settingMap[setting.uid.valueOf()] = setting
       scheduleAJob(setting.uid.valueOf(), calcualteScheduleDate(setting), function () {
         checkCommit(setting, startTime)
       })

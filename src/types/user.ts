@@ -5,4 +5,5 @@ export interface UserType {
   photoUrl: string
   githubUsername?: string
   lastCommit: Date
+  webhooks: string[]
 }

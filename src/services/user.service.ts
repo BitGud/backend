@@ -10,6 +10,15 @@ export const getUserDetails = async (uid: string): Promise<UserType> => {
   }
 }
 
+export const getUserWebhooks = async (uid: string): Promise<string[]> => {
+  try {
+    const userObj = await UserModel.findOne({ uid: uid }).select('webhooks').lean().exec()
+    return Promise.resolve(userObj?.webhooks ?? [])
+  } catch (err) {
+    return Promise.reject(err)
+  }
+}
+
 export const getUserDetailsByGithub = async (username: string): Promise<UserType> => {
   try {
     const userObj = await UserModel.findOne({ githubUsername: username }).lean().exec()

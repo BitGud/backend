@@ -28,6 +28,9 @@ const userSchema = new Schema<UserType>({
     type: Schema.Types.Date,
     index: true,
   },
+  webhooks: {
+    type: Schema.Types.String,
+  },
 })
 
 const UserModel = bitgudMongoose.model<UserType>('users', userSchema)
