@@ -13,6 +13,10 @@ app.get('/', async (req: Request, res: Response) => {
   return res.status(200).json('test')
 })
 
+app.post('/code', async (req: Request, res: Response) => {
+  return res.status(200).send(`${req.body.code} OK`)
+})
+
 app.use('/user', userRoute)
 app.use('/commit', commitRoute)
 
