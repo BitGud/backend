@@ -13,8 +13,5 @@ app.get('/', (req, res) => {
 
 // start the express server
 app.listen(port, () => {
-  // tslint:disable-next-line:no-console
-  console.log(`server started at http://localhost:${port}`)
+  console.log(`Server started at http://localhost:${port}`)
 })
-
-export { app }

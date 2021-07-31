@@ -11,7 +11,7 @@
     "build": "npm-run-all clean lint tsc copy-assets",
     "dev:start": "npm-run-all build start",
     "dev": "nodemon --watch src -e ts,ejs --exec npm run dev:start",
-    "start": "node .",
+    "start": "ts-node src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -20,6 +20,7 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "firebase-admin": "^9.11.0",
     "mongoose": "^5.13.5"
   },
   "devDependencies": {
