@@ -10,7 +10,7 @@ app.use(express.json())
 
 // define a route handler for the default home page
 app.get('/', async (req: Request, res: Response) => {
-  return res.status(200).json('test')
+  return res.status(200).json('A cool API :)')
 })
 
 app.post('/code', async (req: Request, res: Response) => {
