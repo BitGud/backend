@@ -7,6 +7,8 @@ const commitRoute = Router()
 commitRoute.route('/add').post(async (req: Request, res: Response) => {
   try {
     const commitData = req.body as CommitType
+    commitData.timestamp = new Date()
+
     await addCommit(commitData)
     return res.status(200).json('Added')
   } catch (err) {
