@@ -1,5 +1,5 @@
 import express from 'express'
-import { userRoute, commitRoute } from './routes/'
+import { userRoute, commitRoute, settingRoute } from './routes/'
 import { Request, Response } from 'express'
 import cors from 'cors'
 import { createGithubCustomToken } from './utils/decodeGithubToken'
@@ -37,5 +37,6 @@ app.use(checkFirebaseToken)
 // Setup routes
 app.use('/user', userRoute)
 app.use('/commit', commitRoute)
+app.use('/setting', settingRoute)
 
 export { app }

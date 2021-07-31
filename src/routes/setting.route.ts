@@ -1,15 +1,15 @@
 import { Request, Response, Router } from 'express'
-import { UserType } from 'user'
-import { addUser, getUserDetails } from '../services/user.service'
+import { SettingType } from 'settings'
+import { getSetting, updateSetting } from '../services/setting.service'
 
-const userRoute = Router()
+const settingRoute = Router()
 
-userRoute
+settingRoute
   .route('/')
   .get(async (req: Request, res: Response) => {
     try {
-      const uid = (req.headers['uid'] || '') as string
-      const data = await getUserDetails(uid)
+      const uid = req.headers['uid'] as string
+      const data = await getSetting(uid)
       return res.status(200).json(data)
     } catch (err) {
       return res.status(500).json(err.message)
@@ -19,12 +19,12 @@ userRoute
     try {
       const uid = req.headers['uid'] as string
 
-      const userObj = req.body as UserType
-      const data = await addUser(uid, userObj)
+      const settingObj = req.body as SettingType
+      const data = await updateSetting(uid, settingObj)
       return res.status(200).json(data)
     } catch (err) {
       return res.status(500).json(err.message)
     }
   })
 
-export { userRoute }
+export { settingRoute }
