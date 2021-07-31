@@ -18,7 +18,7 @@ app.post('/code', async (req: Request, res: Response) => {
   try {
     const code = req.body.code
     const customFirebaseToken = await createGithubCustomToken(code)
-    return res.status(200).send(customFirebaseToken)
+    return res.status(200).json(customFirebaseToken)
   } catch (err) {
     return res.status(500).json(err.message)
   }
