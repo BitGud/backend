@@ -18,3 +18,18 @@ export const getUserDetailsByGithub = async (username: string): Promise<UserType
     return Promise.reject(err)
   }
 }
+
+export const addUser = async (uid: string, userObj: UserType): Promise<UserType> => {
+  try {
+    // Check if the user already exist
+    const check = await UserModel.findOne({ uid: uid }).lean()
+    if (check !== null) {
+      return Promise.resolve(null)
+    }
+
+    const doc = await new UserModel(userObj).save()
+    return Promise.resolve(doc)
+  } catch (err) {
+    return Promise.reject(err)
+  }
+}
