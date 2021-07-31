@@ -1,6 +1,6 @@
 import express from 'express'
 import { config } from './config/config'
-import { userRoute } from './routes/user.route'
+import { userRoute, commitRoute } from './routes/'
 import { Request, Response } from 'express'
 
 const port = config.PORT
@@ -13,6 +13,7 @@ app.get('/', async (req: Request, res: Response) => {
 })
 
 app.use('/user', userRoute)
+app.use('/commit', commitRoute)
 
 // start the express server
 app.listen(port, () => {

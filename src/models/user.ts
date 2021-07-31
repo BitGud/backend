@@ -22,6 +22,6 @@ const userSchema = new Schema<UserType>({
   },
 })
 
-const UserModel = bitgudMongoose.model<UserType>('User', userSchema)
+const UserModel = bitgudMongoose.model<UserType>('users', userSchema)
 
 export { UserModel }
