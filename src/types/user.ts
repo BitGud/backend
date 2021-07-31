@@ -6,4 +6,5 @@ export interface UserType {
   githubUsername?: string
   lastCommit: Date
   webhooks: string[]
+  lastShock: Date
 }

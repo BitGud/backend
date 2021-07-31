@@ -3,8 +3,9 @@ import moment, { Moment } from 'moment'
 import { getAListOfUsersForScheduler } from '../services/combined.service'
 import { SettingType } from 'settings'
 import { CommitModel, SettingModel } from '../models'
-import { getUserDetails, getUserWebhooks } from '../services/user.service'
+import { getUserDetails, getUserWebhooks, updateLastShock } from '../services/user.service'
 import axios from 'axios'
+import { addShock } from '../services/shock.service'
 
 export const scheduleMap: { [uid: string]: scheduler.Job } = {}
 
@@ -15,6 +16,8 @@ export const scheduleAJob = (uid: string, date: Moment, task: any) => {
 
 const shockFunction = async (uid: string) => {
   try {
+    const currentTime = new Date()
+
     // Trigger webhooks for this user
     const userWebhooks = await getUserWebhooks(uid)
     const webhookPromise = userWebhooks.map(async (webhookUrl) => {
@@ -25,8 +28,11 @@ const shockFunction = async (uid: string) => {
     await Promise.all(webhookPromise)
 
     // Increment the shocked counter
+    await addShock(uid, currentTime)
 
     // Set the last chocked Date/time
+    await updateLastShock(uid, currentTime)
+
     console.log('⚡')
   } catch (err) {
     console.error('error shockFunction', err)

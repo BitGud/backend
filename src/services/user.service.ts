@@ -59,3 +59,20 @@ export const updateLastCommit = async (email: string): Promise<UserType> => {
     return Promise.reject(err)
   }
 }
+
+export const updateLastShock = async (uid: string, date: Date): Promise<UserType> => {
+  try {
+    const userObj = await UserModel.findOne(
+      { uid: uid },
+      {
+        lastShock: date,
+      }
+    )
+      .lean()
+      .exec()
+
+    return Promise.resolve(userObj)
+  } catch (err) {
+    return Promise.reject(err)
+  }
+}
