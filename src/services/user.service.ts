@@ -33,3 +33,20 @@ export const addUser = async (uid: string, userObj: UserType): Promise<UserType>
     return Promise.reject(err)
   }
 }
+
+export const updateLastCommit = async (email: string): Promise<UserType> => {
+  try {
+    const userObj = await UserModel.findOne(
+      { email: email },
+      {
+        lastCommit: new Date(),
+      }
+    )
+      .lean()
+      .exec()
+
+    return Promise.resolve(userObj)
+  } catch (err) {
+    return Promise.reject(err)
+  }
+}

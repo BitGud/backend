@@ -24,6 +24,10 @@ const userSchema = new Schema<UserType>({
     type: String,
     index: true,
   },
+  lastCommit: {
+    type: Schema.Types.Date,
+    index: true,
+  },
 })
 
 const UserModel = bitgudMongoose.model<UserType>('users', userSchema)

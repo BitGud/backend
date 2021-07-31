@@ -4,4 +4,5 @@ export interface UserType {
   email: string
   photoUrl: string
   githubUsername?: string
+  lastCommit: Date
 }
