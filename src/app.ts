@@ -36,12 +36,13 @@ app.post('/code', async (req: Request, res: Response) => {
   }
 })
 
+app.use('/commit', commitRoute)
+
 // Atatch custom middlewares
 app.use(checkFirebaseToken)
 
 // Setup routes
 app.use('/user', userRoute)
-app.use('/commit', commitRoute)
 app.use('/setting', settingRoute)
 
 export { app }
