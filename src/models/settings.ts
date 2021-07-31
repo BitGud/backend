@@ -9,6 +9,9 @@ const settingSchema = new Schema<SettingType>({
   commitFrequency: {
     type: Schema.Types.Number,
   },
+  commitAmount: {
+    type: Schema.Types.Number,
+  },
   uid: {
     type: Schema.Types.ObjectId,
     ref: 'users',

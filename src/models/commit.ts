@@ -16,6 +16,7 @@ const commitSchema = new Schema<CommitType>({
   },
   timestamp: {
     type: Schema.Types.Date,
+    index: true,
   },
   filesChanged: {
     type: Schema.Types.Number,
