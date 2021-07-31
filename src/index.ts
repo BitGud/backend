@@ -8,11 +8,15 @@ const port = config.PORT
 const httpServer = new http.Server(app)
 
 const io = new Server(httpServer, {
-  path: '/socket.io',
+  cors: {
+    allowedHeaders: '*',
+    methods: '*',
+    origin: '*',
+  },
 })
 
 io.on('connection', (socket: Socket) => {
-  console.log('user connected', socket)
+  socket.send('Connection success!')
 })
 
 const server = httpServer.listen(port, function () {
