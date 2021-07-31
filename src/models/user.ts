@@ -20,6 +20,10 @@ const userSchema = new Schema<UserType>({
   photoUrl: {
     type: String,
   },
+  githubUsername: {
+    type: String,
+    index: true,
+  },
 })
 
 const UserModel = bitgudMongoose.model<UserType>('users', userSchema)

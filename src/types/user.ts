@@ -3,4 +3,5 @@ export interface UserType {
   displayName: string
   email: string
   photoUrl: string
+  githubUsername?: string
 }
