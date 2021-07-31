@@ -41,7 +41,7 @@ export const getGitHubUserDetails = async (accessToken: string): Promise<GithubU
   }
 }
 
-export const createGithubCustomToken = async (githubCode: string): Promise<string> => {
+export const createGithubCustomToken = async (githubCode: string): Promise<{ code: string; uid: string }> => {
   try {
     const accessToken = await getGithubAccessToken(githubCode)
     const githubData = await getGitHubUserDetails(accessToken)
@@ -50,7 +50,10 @@ export const createGithubCustomToken = async (githubCode: string): Promise<strin
     const userUid = userDoc.uid
     const generatedToken = await generateCustomToken(userUid)
 
-    return Promise.resolve(generatedToken)
+    return Promise.resolve({
+      code: generatedToken,
+      uid: userUid,
+    })
   } catch (err) {
     console.error('error createGithubCustomToken', err)
     return Promise.reject(err)
