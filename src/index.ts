@@ -23,7 +23,8 @@ const io = new Server(httpServer, {
   },
 })
 
-export const sendShock = async (io: Server, uid: string) => {
+export const sendShock = async (uid: string) => {
+  console.log('shock user', uid)
   io.to(uid).emit('shock', {})
 }
 
