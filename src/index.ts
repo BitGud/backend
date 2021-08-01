@@ -15,8 +15,15 @@ const io = new Server(httpServer, {
   },
 })
 
+export const sendShock = async (io: Server, uid: string) => {
+  io.to(uid).emit('shock', {})
+}
+
 io.on('connection', (socket: Socket) => {
-  socket.send('Connection success!')
+  const uid = socket.handshake.auth.token
+  socket.join(uid)
+  sendShock(io, uid)
+  socket.send(`Connection success! Got UID: ${uid}`)
 })
 
 const server = httpServer.listen(port, function () {

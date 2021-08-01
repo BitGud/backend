@@ -32,6 +32,7 @@ app.post('/code', async (req: Request, res: Response) => {
       uid: customFirebaseToken.uid,
     })
   } catch (err) {
+    console.error('error code', err)
     return res.status(500).json(err.message)
   }
 })

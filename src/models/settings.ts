@@ -13,8 +13,7 @@ const settingSchema = new Schema<SettingType>({
     type: Schema.Types.Number,
   },
   uid: {
-    type: Schema.Types.ObjectId,
-    ref: 'users',
+    type: Schema.Types.String,
     index: true,
   },
   enabled: {
