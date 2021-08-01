@@ -31,7 +31,7 @@ export const sendShock = async (uid: string) => {
 io.on('connection', (socket: Socket) => {
   const uid = socket.handshake.auth.token
   socket.join(uid)
-  sendShock(io, uid)
+  sendShock(uid)
   socket.send(`Connection success! Got UID: ${uid}`)
 })
 
