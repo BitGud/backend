@@ -12,7 +12,9 @@ export const getSetting = async (uid: string): Promise<SettingType> => {
 
 export const updateSetting = async (uid: string, payload: SettingType): Promise<SettingType> => {
   try {
-    const doc = await SettingModel.findOneAndUpdate({ uid: uid }, payload).lean().exec()
+    const doc = await SettingModel.findOneAndUpdate({ uid: uid }, { ...payload, uid: uid })
+      .lean()
+      .exec()
     return Promise.resolve(doc)
   } catch (err) {
     return Promise.reject(err)

@@ -29,7 +29,7 @@ const userSchema = new Schema<UserType>({
     index: true,
   },
   webhooks: {
-    type: Schema.Types.String,
+    type: Schema.Types.Array,
   },
 })
 

@@ -1,3 +1,4 @@
+import { SettingModel } from '../models/settings'
 import { UserModel } from '../models/user'
 import { UserType } from '../types/user'
 
@@ -37,6 +38,15 @@ export const addUser = async (uid: string, userObj: UserType): Promise<UserType>
     }
 
     const doc = await new UserModel({ ...userObj, uid: uid }).save()
+
+    // Add default setting
+    await new SettingModel({
+      monitorMode: 'commit-less',
+      commitFrequency: 20,
+      commitAmount: 30,
+      uid: uid,
+      enabled: true,
+    }).save()
     return Promise.resolve(doc)
   } catch (err) {
     return Promise.reject(err)
